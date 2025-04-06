@@ -8,9 +8,11 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
+import lombok.Getter;
 
 @Entity
 @Table(name = "persons")
+@Getter
 public class PersonEntity {
     @jakarta.persistence.Id
     private String id;
@@ -41,8 +43,8 @@ public class PersonEntity {
                 Id.from(this.id),
                 this.name,
                 this.age,
-                new AddressEntity().toDomain(),
-                new PhoneEntity().toDomain(),
+                address.toDomain(),
+                phone.toDomain(),
                 Integer.valueOf(this.score)
         );
     }

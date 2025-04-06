@@ -1,7 +1,5 @@
 package com.serasaexperian.registration.api.application.domain.entity;
 
-import com.bradesco.registration.api.application.domain.valueclass.*;
-import com.serasa.registration.api.application.domain.valueclass.*;
 import com.serasaexperian.registration.api.application.domain.valueclass.Age;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
 import com.serasaexperian.registration.api.application.domain.valueclass.Name;

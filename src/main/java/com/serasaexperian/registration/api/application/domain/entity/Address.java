@@ -1,23 +1,20 @@
 package com.serasaexperian.registration.api.application.domain.entity;
 
-import com.serasaexperian.registration.api.application.domain.valueclass.City;
-import com.serasaexperian.registration.api.application.domain.valueclass.Neighborhood;
-import com.serasaexperian.registration.api.application.domain.valueclass.State;
-import com.serasaexperian.registration.api.application.domain.valueclass.ZipCode;
+import com.serasaexperian.registration.api.application.domain.valueclass.*;
 import lombok.Getter;
 
 import java.util.UUID;
 
 @Getter
 public class Address {
-    private final String id;
+    private final Id id;
     private final ZipCode zipCode;
     private final State state;
     private final City city;
     private final Neighborhood neighborhood;
 
     private Address(
-            String id,
+            Id id,
             ZipCode zipCode,
             State state,
             City city,
@@ -37,7 +34,7 @@ public class Address {
             Neighborhood neighborhood
     ) {
         return new Address(
-                UUID.randomUUID().toString(),
+                Id.create(),
                 zipCode,
                 state,
                 city,
@@ -46,7 +43,7 @@ public class Address {
     }
 
     public static Address from(
-            String id,
+            Id id,
             String zipCode,
             String state,
             String city,

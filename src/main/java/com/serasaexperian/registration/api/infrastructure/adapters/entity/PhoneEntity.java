@@ -4,9 +4,11 @@ import com.serasaexperian.registration.api.application.domain.entity.Phone;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
 @Entity
 @Table(name = "phones")
+@Getter
 public class PhoneEntity {
     @Id
     private String id;
