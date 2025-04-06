@@ -16,6 +16,8 @@ public class AddressEntity {
     private String state;
     private String city;
     private String neighborhood;
+    private String street;
+    private String number;
 
     public AddressEntity() {
     }
@@ -26,6 +28,8 @@ public class AddressEntity {
         this.state = address.getState().value();
         this.city = address.getCity().value();
         this.neighborhood = address.getNeighborhood().value();
+        this.street = address.getStreet().value();
+        this.number = address.getNumber().value();
     }
 
     public Address toDomain() {
@@ -34,8 +38,9 @@ public class AddressEntity {
                 this.zipCode,
                 this.state,
                 this.city,
-                this.neighborhood
-
+                this.neighborhood,
+                this.street,
+                this.number
         );
     }
 }

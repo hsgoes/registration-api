@@ -5,8 +5,12 @@ import com.serasaexperian.registration.api.application.domain.ports.PersonReposi
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
 import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
+@Transactional
 @Repository
 public class PersonRepositoryAdapter implements PersonRepositoryPort {
 
@@ -17,7 +21,7 @@ public class PersonRepositoryAdapter implements PersonRepositoryPort {
     }
 
     @Override
-    public Person createPerson(Person person) {
+    public Person save(Person person) {
         var entity = new PersonEntity(person);
 
         try {
@@ -30,29 +34,21 @@ public class PersonRepositoryAdapter implements PersonRepositoryPort {
     }
 
     @Override
-    public Person getPerson(Id id) {
-        var entity = repository.findById(id.value());
-
+    public Optional<Person> findById(Id id) {
         try {
-            return entity
-                    .map(PersonEntity::toDomain)
-                    .orElseThrow(() -> new Exception("Pessoa com o id " + id.value() + " não encontrada."));
+            var entity = repository.findById(id.value());
+            return entity.map(PersonEntity::toDomain);
         } catch (Exception e) {
             throw new RuntimeException("Ocorreu um erro ao buscar a pessoa: " + e.getMessage(), e);
         }
     }
 
     @Override
-    public void deletePerson(Id id) {
+    public void delete(Id id) {
         try {
             repository.deleteById(id.value());
         } catch (Exception e) {
             throw new RuntimeException("Ocorreu um erro ao deletar a pessoa: " + e.getMessage(), e);
         }
-    }
-
-    @Override
-    public Person updatePerson(Id id, String name, String email, String phoneNumber, String address) {
-        return null;
     }
 }

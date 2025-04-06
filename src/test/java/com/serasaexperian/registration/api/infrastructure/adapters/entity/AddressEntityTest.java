@@ -19,7 +19,9 @@ public class AddressEntityTest {
                 "12345678",
                 "São Paulo",
                 "São Paulo",
-                "Centro"
+                "Centro",
+                "Rua A",
+                "123"
         );
     }
 
@@ -32,6 +34,8 @@ public class AddressEntityTest {
         assertEquals("São Paulo", addressEntity.getState());
         assertEquals("São Paulo", addressEntity.getCity());
         assertEquals("Centro", addressEntity.getNeighborhood());
+        assertEquals("Rua A", addressEntity.getStreet());
+        assertEquals("123", addressEntity.getNumber());
     }
 
     @Test
@@ -44,5 +48,7 @@ public class AddressEntityTest {
         assertEquals("São Paulo", domainAddress.getState().value());
         assertEquals("São Paulo", domainAddress.getCity().value());
         assertEquals("Centro", domainAddress.getNeighborhood().value());
+        assertEquals("Rua A", domainAddress.getStreet().value());
+        assertEquals("123", domainAddress.getNumber().value());
     }
 }

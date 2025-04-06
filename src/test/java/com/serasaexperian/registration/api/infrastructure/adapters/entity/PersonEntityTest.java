@@ -26,7 +26,9 @@ public class PersonEntityTest {
                         "12345678",
                         "São Paulo",
                         "São Paulo",
-                        "Centro"
+                        "Centro",
+                        "Rua A",
+                        "123"
                 ),
                 Phone.from(
                         "11",
@@ -48,6 +50,8 @@ public class PersonEntityTest {
         assertEquals("São Paulo", personEntity.getAddress().getState());
         assertEquals("São Paulo", personEntity.getAddress().getCity());
         assertEquals("Centro", personEntity.getAddress().getNeighborhood());
+        assertEquals("Rua A", personEntity.getAddress().getStreet());
+        assertEquals("123", personEntity.getAddress().getNumber());
         assertEquals("11", personEntity.getPhone().getDDD());
         assertEquals("912345678", personEntity.getPhone().getNumber());
     }
@@ -65,6 +69,8 @@ public class PersonEntityTest {
         assertEquals("São Paulo", domainPerson.getAddress().getState().value());
         assertEquals("São Paulo", domainPerson.getAddress().getCity().value());
         assertEquals("Centro", domainPerson.getAddress().getNeighborhood().value());
+        assertEquals("Rua A", domainPerson.getAddress().getStreet().value());
+        assertEquals("123", domainPerson.getAddress().getNumber().value());
         assertEquals("11", domainPerson.getPhone().getDdd().value());
         assertEquals("912345678", domainPerson.getPhone().getNumber().value());
         assertEquals(900, domainPerson.getScore().value());

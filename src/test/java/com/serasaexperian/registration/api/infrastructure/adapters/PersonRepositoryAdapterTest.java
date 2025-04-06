@@ -1,10 +1,10 @@
-package com.serasaexperian.registration.api.infrastructure.adapters.entity;
+package com.serasaexperian.registration.api.infrastructure.adapters;
 
 import com.serasaexperian.registration.api.application.domain.entity.Address;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 import com.serasaexperian.registration.api.application.domain.entity.Phone;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
-import com.serasaexperian.registration.api.infrastructure.adapters.PersonRepositoryAdapter;
+import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,9 @@ public class PersonRepositoryAdapterTest {
                         "12345678",
                         "São Paulo",
                         "São Paulo",
-                        "Centro"
+                        "Centro",
+                        "Rua A",
+                        "123"
                 ),
                 Phone.from(
                         "11",
@@ -59,10 +61,10 @@ public class PersonRepositoryAdapterTest {
     }
 
     @Test
-    void shouldCreatePerson_WhenValidPersonIsProvided() {
+    void shouldSavePerson_WhenValidIsProvided() {
         when(repository.save(any(PersonEntity.class))).thenReturn(personEntity);
 
-        Person result = adapter.createPerson(person);
+        Person result = adapter.save(person);
 
         assertNotNull(result);
 
@@ -73,17 +75,17 @@ public class PersonRepositoryAdapterTest {
     void shouldGetPerson_WhenValidIdIsProvided() {
         when(repository.findById(person.getId().value())).thenReturn(Optional.of(personEntity));
 
-        Person result = adapter.getPerson(person.getId());
+        var result = adapter.findById(person.getId());
 
         assertNotNull(result);
         verify(repository, times(1)).findById(person.getId().value());
     }
 
     @Test
-    void shouldDeletePerson_WhenValidIdIsProvided() {
+    void shouldDelete_WhenValidIdIsProvided() {
         doNothing().when(repository).deleteById(person.getId().value());
 
-        assertDoesNotThrow(() -> adapter.deletePerson(person.getId()));
+        assertDoesNotThrow(() -> adapter.delete(person.getId()));
         verify(repository, times(1)).deleteById(person.getId().value());
     }
 
