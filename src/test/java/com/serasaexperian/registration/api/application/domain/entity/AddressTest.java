@@ -19,7 +19,6 @@ public class AddressTest {
                 new StreetNumber("123")
         );
 
-        assertNotNull(address.getId());
         assertEquals("12345678", address.getZipCode().value());
         assertEquals("São Paulo", address.getState().value());
         assertEquals("São Paulo", address.getCity().value());
@@ -30,9 +29,7 @@ public class AddressTest {
 
     @Test
     public void shouldCreateAddress_whenFromIsCalled() {
-        Id id = Id.from("5ce5b33b-2e64-40f9-acb4-6aa1edc953c1");
         Address address = Address.from(
-                id,
                 "12345678",
                 "São Paulo",
                 "São Paulo",
@@ -41,7 +38,6 @@ public class AddressTest {
                 "123"
         );
 
-        assertEquals(id, address.getId());
         assertEquals("12345678", address.getZipCode().value());
         assertEquals("São Paulo", address.getState().value());
         assertEquals("São Paulo", address.getCity().value());

@@ -1,12 +1,14 @@
 package com.serasaexperian.registration.api.infrastructure.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ExternalServiceResponse {
-        private String cep;
+    private String cep;
     private String logradouro;
     private String complemento;
     private String unidade;

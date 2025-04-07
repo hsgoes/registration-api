@@ -14,7 +14,6 @@ public class PhoneEntityTest {
     public void setUp() {
         phone = Phone.from("11", "912345678");
         personEntity = new PersonEntity();
-        personEntity.setId("1");
     }
 
     @Test
@@ -23,7 +22,6 @@ public class PhoneEntityTest {
 
         assertEquals("11", phoneEntity.getDDD());
         assertEquals("912345678", phoneEntity.getNumber());
-        assertEquals("1", phoneEntity.getPersonId());
     }
 
     @Test

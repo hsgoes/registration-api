@@ -21,7 +21,6 @@ public class AddressEntityTest {
                 "123"
         );
         personEntity = new PersonEntity();
-        personEntity.setId("1");
     }
 
     @Test
@@ -34,7 +33,6 @@ public class AddressEntityTest {
         assertEquals("Centro", addressEntity.getNeighborhood());
         assertEquals("Rua A", addressEntity.getStreet());
         assertEquals("123", addressEntity.getNumber());
-        assertEquals("1", addressEntity.getPersonId());
     }
 
     @Test

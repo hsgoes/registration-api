@@ -30,16 +30,16 @@ public record UpdatePersonUseCaseInput(
             Integer score
     ) {
         this.personId = requireNonNull(personId, "O ID da pessoa não pode ser nulo ou vazio");
-        this.name = requireNonNull(name, "O Nome não pode ser nulo ou vazio");
-        this.age = requireNonNull(age, "A Idade não pode ser nula ou vazia");
-        this.zipCode = requireNonNull(zipCode, "O CEP não pode ser nulo ou vazio");
-        this.state = requireNonNull(state, "O Estado não pode ser nulo ou vazio");
-        this.city = requireNonNull(city, "A Cidade não pode ser nula ou vazia");
-        this.neighborhood = requireNonNull(neighborhood, "O Bairro não pode ser nulo ou vazio");
-        this.street = requireNonNull(street, "A Rua não pode ser nula ou vazia");
-        this.streetNumber = requireNonNull(streetNumber, "O Número não pode ser nulo ou vazio");
-        this.ddd = requireNonNull(ddd, "O DDD não pode ser nulo ou vazio");
-        this.phoneNumber = requireNonNull(phoneNumber, "O Telefone não pode ser nulo ou vazio");
-        this.score = requireNonNull(score, "O Score não pode ser nulo ou vazio");
+        this.name = name;
+        this.age = age;
+        this.zipCode = zipCode;
+        this.state = state;
+        this.city = city;
+        this.neighborhood = neighborhood;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.ddd = ddd;
+        this.phoneNumber = phoneNumber;
+        this.score = score;
     }
 }

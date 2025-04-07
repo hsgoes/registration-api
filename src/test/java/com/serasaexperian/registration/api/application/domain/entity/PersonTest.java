@@ -10,9 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PersonTest {
-
     private static final String PERSON_ID = "a4abf7e9-a23f-46e0-8c3a-b8a418dc39c2";
-    private static final String ADDRESS_ID = "5ce5b33b-2e64-40f9-acb4-6aa1edc953c1";
 
     @Test
     public void shouldCreatePerson_whenFromIsCalled() {
@@ -22,7 +20,6 @@ public class PersonTest {
                 "Joao Silva",
                 "30",
                 Address.from(
-                        Id.from(ADDRESS_ID),
                         "12345678",
                         "São Paulo",
                         "São Paulo",
@@ -40,7 +37,6 @@ public class PersonTest {
         assertEquals(PERSON_ID, person.getId().value());
         assertEquals("Joao Silva", person.getName().value());
         assertEquals("30", person.getAge().value());
-        assertEquals(ADDRESS_ID, person.getAddress().getId().value());
         assertEquals("12345678", person.getAddress().getZipCode().value());
         assertEquals("São Paulo", person.getAddress().getState().value());
         assertEquals("São Paulo", person.getAddress().getCity().value());
@@ -58,7 +54,6 @@ public class PersonTest {
                 new Name("Joao Silva"),
                 new Age("30"),
                 Address.from(
-                        Id.from(ADDRESS_ID),
                         "12345678",
                         "São Paulo",
                         "São Paulo",
@@ -76,7 +71,6 @@ public class PersonTest {
         assertNotNull(person.getId().value());
         assertEquals("Joao Silva", person.getName().value());
         assertEquals("30", person.getAge().value());
-        assertEquals(ADDRESS_ID, person.getAddress().getId().value());
         assertEquals("12345678", person.getAddress().getZipCode().value());
         assertEquals("São Paulo", person.getAddress().getState().value());
         assertEquals("São Paulo", person.getAddress().getCity().value());

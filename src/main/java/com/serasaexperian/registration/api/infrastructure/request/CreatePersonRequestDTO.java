@@ -1,9 +1,12 @@
 package com.serasaexperian.registration.api.infrastructure.request;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
+@AllArgsConstructor
 public class CreatePersonRequestDTO {
     @NotNull(message = "O nome não pode ser vazio")
     private String name;

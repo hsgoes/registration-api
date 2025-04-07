@@ -31,7 +31,6 @@ public class PersonRepositoryAdapterTest {
     private PersonEntity personEntity;
 
     private static final String PERSON_ID =  "a4abf7e9-a23f-46e0-8c3a-b8a418dc39c2";
-    private static final String ADDRESS_ID = "5ce5b33b-2e64-40f9-acb4-6aa1edc953c1";
 
     @BeforeEach
     void setUp() {
@@ -41,7 +40,6 @@ public class PersonRepositoryAdapterTest {
                 "Joao Silva",
                 "30",
                 Address.from(
-                        Id.from(ADDRESS_ID),
                         "12345678",
                         "São Paulo",
                         "São Paulo",

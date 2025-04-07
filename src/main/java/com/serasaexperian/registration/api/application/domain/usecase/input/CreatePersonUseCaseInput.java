@@ -1,10 +1,5 @@
 package com.serasaexperian.registration.api.application.domain.usecase.input;
 
-import com.serasaexperian.registration.api.application.domain.entity.Address;
-import com.serasaexperian.registration.api.application.domain.entity.Person;
-import com.serasaexperian.registration.api.application.domain.entity.Phone;
-import com.serasaexperian.registration.api.application.domain.valueclass.*;
-
 public record CreatePersonUseCaseInput(
         String name,
         String age,
@@ -43,25 +38,5 @@ public record CreatePersonUseCaseInput(
         this.ddd = requireNonNull(ddd, "O DDD não pode ser nulo ou vazio");
         this.phoneNumber = requireNonNull(phoneNumber, "O Telefone não pode ser nulo ou vazio");
         this.score = requireNonNull(score, "O Score não pode ser nulo ou vazio");
-    }
-
-    public Person toPerson() {
-        return Person.create(
-                new Name(this.name),
-                new Age(this.age),
-                Address.create(
-                        new ZipCode(this.zipCode),
-                        new State(this.state),
-                        new City(this.city),
-                        new Neighborhood(this.neighborhood),
-                        new Street(this.street),
-                        new StreetNumber(this.streetNumber)
-                ),
-                Phone.create(
-                        new DDD(this.ddd),
-                        new PhoneNumber(this.phoneNumber)
-                ),
-                new Score(this.score)
-        );
     }
 }

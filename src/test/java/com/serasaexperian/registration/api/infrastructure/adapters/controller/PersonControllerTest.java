@@ -21,13 +21,12 @@ import static org.mockito.Mockito.*;
 public class PersonControllerTest {
 
     private static final String PERSON_ID = "a4abf7e9-a23f-46e0-8c3a-b8a418dc39c2";
-    private static final String ADDRESS_ID = "5ce5b33b-2e64-40f9-acb4-6aa1edc953c1";
 
     @Mock
     private PersonServicePort servicePort;
 
     @InjectMocks
-    private PersonCo personController;
+    private PersonController personController;
 
     private CreatePersonRequestDTO requestDTO;
     private Person person;
@@ -40,7 +39,6 @@ public class PersonControllerTest {
                 "Joao Silva",
                 "30",
                 Address.from(
-                        Id.from(ADDRESS_ID),
                         "12345678",
                         "São Paulo",
                         "São Paulo",
@@ -51,15 +49,19 @@ public class PersonControllerTest {
                 Phone.from(
                         "11",
                         "912345678"
-                ),
-                900
+                ), 900
             );
 
-        requestDTO = new CreatePersonRequestDTO();
-        requestDTO.setName("Joao Silva");
-        requestDTO.setAge("30");
-        requestDTO.setZipCode("12345678");
-        requestDTO.setScore(900);
+        requestDTO =
+            new CreatePersonRequestDTO(
+                "Joao Silva",
+                "30",
+                "12345678",
+                "10",
+                900,
+                "11",
+                "912345678"
+            );
 
         MockitoAnnotations.openMocks(this);
     }
@@ -74,25 +76,4 @@ public class PersonControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
-
-//    @Test
-//    public void shouldGetPerson_whenGetPersonIsCalled() {
-//        ResponseEntity<PersonResponseDTO> response = personController.getPerson("1", "0", "10");
-//
-//        assertEquals(ResponseEntity.ok().build(), response);
-//    }
-//
-//    @Test
-//    public void shouldDeletePerson_whenDeletePersonIsCalled() {
-//        ResponseEntity<?> response = personController.deletePerson();
-//
-//        assertEquals(ResponseEntity.ok().build(), response);
-//    }
-//
-//    @Test
-//    public void shouldUpdatePerson_whenUpdatePersonIsCalled() {
-//        ResponseEntity<PersonResponseDTO> response = personController.updatePerson("1", requestDTO);
-//
-//        assertEquals(ResponseEntity.ok().build(), response);
-//    }
 }
