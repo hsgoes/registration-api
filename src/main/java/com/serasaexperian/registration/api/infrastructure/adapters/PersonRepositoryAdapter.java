@@ -3,14 +3,15 @@ package com.serasaexperian.registration.api.infrastructure.adapters;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 import com.serasaexperian.registration.api.application.domain.ports.PersonRepositoryPort;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
+import com.serasaexperian.registration.api.infrastructure.adapters.entity.AddressEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
+import com.serasaexperian.registration.api.infrastructure.adapters.entity.PhoneEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Transactional
 @Repository
 public class PersonRepositoryAdapter implements PersonRepositoryPort {
 
@@ -21,6 +22,7 @@ public class PersonRepositoryAdapter implements PersonRepositoryPort {
     }
 
     @Override
+    @Transactional
     public Person save(Person person) {
         var entity = new PersonEntity(person);
 

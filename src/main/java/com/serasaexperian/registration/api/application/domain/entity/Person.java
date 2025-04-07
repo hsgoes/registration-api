@@ -64,22 +64,4 @@ public class Person {
                 new Score(score)
         );
     }
-
-//    public Person updateWith(
-//            Id id,
-//            String name,
-//            String age,
-//            Address address,
-//            Phone phone,
-//            Integer score
-//    ) {
-//        return Person.from(
-//                id,
-//                name,
-//                age,
-//                address,
-//                phone,
-//                score
-//        );
-//    }
 }

@@ -1,50 +1,47 @@
 package com.serasaexperian.registration.api.infrastructure.adapters.entity;
 
 import com.serasaexperian.registration.api.application.domain.entity.Address;
-import com.serasaexperian.registration.api.application.domain.valueclass.Id;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddressEntityTest {
-    private static final String ADDRESS_ID = "5ce5b33b-2e64-40f9-acb4-6aa1edc953c1";
-
     private Address address;
+    private PersonEntity personEntity;
 
     @BeforeEach
     public void setUp() {
-        address =
-            Address.from(
-                Id.from(ADDRESS_ID),
+        address = Address.from(
                 "12345678",
                 "São Paulo",
                 "São Paulo",
                 "Centro",
                 "Rua A",
                 "123"
-            );
+        );
+        personEntity = new PersonEntity();
+        personEntity.setId("1");
     }
 
     @Test
     public void shouldCreateAddressEntity_whenConstructorIsCalled() {
-        AddressEntity addressEntity = new AddressEntity(address);
+        AddressEntity addressEntity = new AddressEntity(address, personEntity);
 
-        assertEquals(ADDRESS_ID, addressEntity.getId());
         assertEquals("12345678", addressEntity.getZipCode());
         assertEquals("São Paulo", addressEntity.getState());
         assertEquals("São Paulo", addressEntity.getCity());
         assertEquals("Centro", addressEntity.getNeighborhood());
         assertEquals("Rua A", addressEntity.getStreet());
         assertEquals("123", addressEntity.getNumber());
+        assertEquals("1", addressEntity.getPersonId());
     }
 
     @Test
     public void shouldConvertToDomain_whenToDomainIsCalled() {
-        AddressEntity addressEntity = new AddressEntity(address);
+        AddressEntity addressEntity = new AddressEntity(address, personEntity);
         Address domainAddress = addressEntity.toDomain();
 
-        assertEquals(ADDRESS_ID, domainAddress.getId().value());
         assertEquals("12345678", domainAddress.getZipCode().value());
         assertEquals("São Paulo", domainAddress.getState().value());
         assertEquals("São Paulo", domainAddress.getCity().value());

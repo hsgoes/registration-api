@@ -1,6 +1,7 @@
 package com.serasaexperian.registration.api.application.domain.entity;
 
 import com.serasaexperian.registration.api.application.domain.valueclass.DDD;
+import com.serasaexperian.registration.api.application.domain.valueclass.Id;
 import com.serasaexperian.registration.api.application.domain.valueclass.PhoneNumber;
 import lombok.Getter;
 
@@ -20,8 +21,8 @@ public class Phone {
 
     public static Phone from(String ddd, String number) {
         return new Phone(
-                new DDD(ddd),
-                new PhoneNumber(number)
+            new DDD(ddd),
+            new PhoneNumber(number)
         );
     }
 }

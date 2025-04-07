@@ -1,9 +1,12 @@
 package com.serasaexperian.registration.api.application.domain.usecase.output;
 
+import com.serasaexperian.registration.api.application.domain.entity.Address;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
+import com.serasaexperian.registration.api.application.domain.entity.Phone;
+import com.serasaexperian.registration.api.application.domain.valueclass.Id;
 
 public record PersonUseCaseOutput(
-        String id,
+        String personId,
         String name,
         String age,
         String zipCode,
@@ -30,6 +33,27 @@ public record PersonUseCaseOutput(
                 person.getPhone().getDdd().value(),
                 person.getPhone().getNumber().value(),
                 person.getScore().value()
+        );
+    }
+
+    public Person toPerson() {
+        return Person.from(
+                Id.from(this.personId),
+                this.name,
+                this.age,
+                Address.from(
+                        this.zipCode,
+                        this.state,
+                        this.city,
+                        this.neighborhood,
+                        this.street,
+                        this.streetNumber
+                ),
+                Phone.from(
+                        this.ddd,
+                        this.phoneNumber
+                ),
+                this.score
         );
     }
 }

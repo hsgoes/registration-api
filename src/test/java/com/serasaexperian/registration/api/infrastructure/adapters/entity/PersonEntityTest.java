@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonEntityTest {
     private static final String PERSON_ID =  "a4abf7e9-a23f-46e0-8c3a-b8a418dc39c2";
-    private static final String ADDRESS_ID = "5ce5b33b-2e64-40f9-acb4-6aa1edc953c1";
 
     private Person person;
 
@@ -23,7 +22,6 @@ public class PersonEntityTest {
                 "Joao Silva",
                 "30",
                 Address.from(
-                        Id.from(ADDRESS_ID),
                         "12345678",
                         "São Paulo",
                         "São Paulo",
@@ -46,7 +44,6 @@ public class PersonEntityTest {
         assertEquals(PERSON_ID, personEntity.getId());
         assertEquals("Joao Silva", personEntity.getName());
         assertEquals("30", personEntity.getAge());
-        assertEquals(ADDRESS_ID, personEntity.getAddress().getId());
         assertEquals("12345678", personEntity.getAddress().getZipCode());
         assertEquals("São Paulo", personEntity.getAddress().getState());
         assertEquals("São Paulo", personEntity.getAddress().getCity());
@@ -65,7 +62,6 @@ public class PersonEntityTest {
         assertEquals(PERSON_ID, domainPerson.getId().value());
         assertEquals("Joao Silva", domainPerson.getName().value());
         assertEquals("30", domainPerson.getAge().value());
-        assertEquals(ADDRESS_ID, domainPerson.getAddress().getId().value());
         assertEquals("12345678", domainPerson.getAddress().getZipCode().value());
         assertEquals("São Paulo", domainPerson.getAddress().getState().value());
         assertEquals("São Paulo", domainPerson.getAddress().getCity().value());

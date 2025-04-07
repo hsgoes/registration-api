@@ -15,5 +15,7 @@ public class DeletePersonUseCase {
     public void execute(DeletePersonUseCaseInput input) {
         var person = repositoryPort.findById(Id.from(input.id()))
                 .orElseThrow(() -> new RuntimeException("Pessoa com o id " + input.id() + " não encontrada."));
+
+        repositoryPort.delete(person.getId());
     }
 }

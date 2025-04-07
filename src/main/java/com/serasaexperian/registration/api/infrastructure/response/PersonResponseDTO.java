@@ -1,18 +1,43 @@
 package com.serasaexperian.registration.api.infrastructure.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonResponseDTO {
+
+    @JsonProperty("id")
     private String id;
+
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("age")
     private String age;
+
+    @JsonProperty("zipCode")
     private String zipCode;
+
+    @JsonProperty("state")
     private String state;
+
+    @JsonProperty("city")
     private String city;
+
+    @JsonProperty("neighborhood")
     private String neighborhood;
+
+    @JsonProperty("street")
     private String street;
+
+    @JsonProperty("number")
     private String number;
+
+    @JsonProperty("phone")
     private String phone;
+
+    @JsonProperty("score")
     private Integer score;
 
     public PersonResponseDTO() {}

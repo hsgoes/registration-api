@@ -5,12 +5,18 @@ import lombok.Data;
 
 @Data
 public class CreatePersonRequestDTO {
-    @NotNull(message = "O nome da pessoa não pode ser vazio")
+    @NotNull(message = "O nome não pode ser vazio")
     private String name;
-    @NotNull(message = "A idade da pessoa não pode ser vazia")
+    @NotNull(message = "A idade não pode ser vazia")
     private String age;
-    @NotNull(message = "O cep da pessoa não pode ser vazio")
+    @NotNull(message = "O cep não pode ser vazio")
     private String zipCode;
-    @NotNull(message = "O score da pessoa não pode ser vazio")
+    @NotNull(message = "O numero da residencia não pode ser vazio")
+    private String number;
+    @NotNull(message = "O score não pode ser vazio")
     private Integer score;
+    @NotNull(message = "O ddd não pode ser vazio")
+    private String ddd;
+    @NotNull(message = "O telefone não pode ser vazio")
+    private String phoneNumber;
 }

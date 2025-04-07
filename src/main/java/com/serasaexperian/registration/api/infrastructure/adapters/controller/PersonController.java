@@ -3,15 +3,14 @@ package com.serasaexperian.registration.api.infrastructure.adapters.controller;
 import com.serasaexperian.registration.api.application.domain.ports.PersonServicePort;
 import com.serasaexperian.registration.api.infrastructure.adapters.PersonAPI;
 import com.serasaexperian.registration.api.infrastructure.request.CreatePersonRequestDTO;
+import com.serasaexperian.registration.api.infrastructure.request.UpdatePersonRequestDTO;
 import com.serasaexperian.registration.api.infrastructure.response.PersonResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-
+@RestController
 public class PersonController implements PersonAPI {
 
-    @Autowired
     private final PersonServicePort servicePort;
 
     public PersonController(PersonServicePort personServicePort) {
@@ -22,11 +21,11 @@ public class PersonController implements PersonAPI {
     public ResponseEntity<PersonResponseDTO> createPerson(
             CreatePersonRequestDTO createPersonRequestDTO
     ) {
-        var response = servicePort.createPerson(createPersonRequestDTO);
-        var personResponseDTO = new PersonResponseDTO(response);
+        var person = servicePort.createPerson(createPersonRequestDTO);
+        var personResponseDTO = new PersonResponseDTO(person);
 
         return ResponseEntity
-                .created(URI.create("/persons/" + response.getId().value()))
+                .ok()
                 .body(personResponseDTO);
     }
 
@@ -40,15 +39,25 @@ public class PersonController implements PersonAPI {
     }
 
     @Override
-    public ResponseEntity<?> deletePerson() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deletePerson(String id) {
+
+        servicePort.deletePerson(id);
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 
     @Override
     public ResponseEntity<PersonResponseDTO> updatePerson(
             String id,
-            CreatePersonRequestDTO createPersonRequestDTO
+            UpdatePersonRequestDTO updatePersonRequestDTO
     ) {
-        return ResponseEntity.ok().build();
+        var person = servicePort.updatePerson(id, updatePersonRequestDTO);
+        var personResponseDTO = new PersonResponseDTO(person);
+
+        return ResponseEntity
+                .ok()
+                .body(personResponseDTO);
     }
 }
