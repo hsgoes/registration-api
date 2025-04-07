@@ -10,14 +10,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonEntityTest {
-    private Person person;
-
     private static final String PERSON_ID =  "a4abf7e9-a23f-46e0-8c3a-b8a418dc39c2";
     private static final String ADDRESS_ID = "5ce5b33b-2e64-40f9-acb4-6aa1edc953c1";
 
+    private Person person;
+
     @BeforeEach
     void setUp() {
-        person = Person.from(
+        person =
+            Person.from(
                 Id.from(PERSON_ID),
                 "Joao Silva",
                 "30",
@@ -34,8 +35,8 @@ public class PersonEntityTest {
                         "11",
                         "912345678"
                 ),
-                900
-        );
+            900
+            );
     }
 
     @Test

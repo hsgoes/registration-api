@@ -35,7 +35,8 @@ public class PersonRepositoryAdapterTest {
 
     @BeforeEach
     void setUp() {
-        person = Person.from(
+        person =
+            Person.from(
                 Id.from(PERSON_ID),
                 "Joao Silva",
                 "30",
@@ -52,8 +53,8 @@ public class PersonRepositoryAdapterTest {
                         "11",
                         "912345678"
                 ),
-                900
-        );
+            900
+            );
 
         personEntity = new PersonEntity(person);
 

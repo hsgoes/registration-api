@@ -11,10 +11,7 @@ public class PhoneEntityTest {
 
     @BeforeEach
     public void setUp() {
-        phone = Phone.from(
-                "11",
-                "912345678"
-        );
+        phone = Phone.from("11", "912345678");
     }
 
     @Test

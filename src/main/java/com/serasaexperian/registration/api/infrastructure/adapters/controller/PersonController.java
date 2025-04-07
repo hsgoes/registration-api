@@ -7,6 +7,8 @@ import com.serasaexperian.registration.api.infrastructure.response.PersonRespons
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URI;
+
 public class PersonController implements PersonAPI {
 
     @Autowired
@@ -20,11 +22,12 @@ public class PersonController implements PersonAPI {
     public ResponseEntity<PersonResponseDTO> createPerson(
             CreatePersonRequestDTO createPersonRequestDTO
     ) {
-
         var response = servicePort.createPerson(createPersonRequestDTO);
         var personResponseDTO = new PersonResponseDTO(response);
 
-        return ResponseEntity.ok(personResponseDTO);
+        return ResponseEntity
+                .created(URI.create("/persons/" + response.getId().value()))
+                .body(personResponseDTO);
     }
 
     @Override

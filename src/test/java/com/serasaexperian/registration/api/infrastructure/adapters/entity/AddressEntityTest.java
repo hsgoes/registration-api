@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddressEntityTest {
-    private Address address;
-
     private static final String ADDRESS_ID = "5ce5b33b-2e64-40f9-acb4-6aa1edc953c1";
+
+    private Address address;
 
     @BeforeEach
     public void setUp() {
-        address = Address.from(
+        address =
+            Address.from(
                 Id.from(ADDRESS_ID),
                 "12345678",
                 "São Paulo",
@@ -22,7 +23,7 @@ public class AddressEntityTest {
                 "Centro",
                 "Rua A",
                 "123"
-        );
+            );
     }
 
     @Test
