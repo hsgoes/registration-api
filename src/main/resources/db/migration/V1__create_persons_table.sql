@@ -1,0 +1,6 @@
+CREATE TABLE persons (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age VARCHAR(3) NOT NULL,
+    score VARCHAR(4) NOT NULL
+);
