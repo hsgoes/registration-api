@@ -1,6 +1,7 @@
 package com.serasaexperian.registration.api.infrastructure.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,7 +12,8 @@ public class UpdatePersonRequestDTO {
     private String name;
     @Schema(description = "Idade da pessoa")
     private String age;
-    @Schema(description = "Endereço da pessoa")
+    @Schema(description = "Cep da residencia", example = "12345678")
+    @NotNull(message = "O cep não pode ser vazio")
     private String zipCode;
     @Schema(description = "Número do documento da pessoa")
     private String number;

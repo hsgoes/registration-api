@@ -35,7 +35,7 @@ public class PersonServiceAdapter implements PersonServicePort {
             UpdatePersonUseCase updatePersonUseCase,
             DeletePersonUseCase deletePersonUseCase,
             ExternalServicePort externalServicePort,
-            PersonRepositoryPort repositoryPort, SpringDataPersonRepository repository
+            PersonRepositoryPort repositoryPort
     ) {
         this.createPersonUseCase = createPersonUseCase;
         this.updatePersonUseCase = updatePersonUseCase;
