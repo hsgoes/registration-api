@@ -11,11 +11,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -71,6 +74,17 @@ public class PersonRepositoryAdapterTest {
     }
 
     @Test
+    void shouldThrowException_WhenSaveFails() {
+        when(repository.save(any(PersonEntity.class))).thenThrow(new RuntimeException("Error"));
+
+        var exception = assertThrows(RuntimeException.class, () -> adapter.save(person));
+
+        verify(repository, times(1)).save(any(PersonEntity.class));
+
+        assertEquals("Ocorreu um erro ao salvar a pessoa: Error", exception.getMessage());
+    }
+
+    @Test
     void shouldGetPerson_WhenValidIdIsProvided() {
         when(repository.findById(person.getId().value())).thenReturn(Optional.of(personEntity));
 
@@ -81,11 +95,33 @@ public class PersonRepositoryAdapterTest {
     }
 
     @Test
+    void shouldThrowException_WhenGetPersonFails() {
+        when(repository.findById(person.getId().value())).thenThrow(new RuntimeException("Error"));
+
+        var exception = assertThrows(RuntimeException.class, () -> adapter.findById(person.getId()));
+
+        verify(repository, times(1)).findById(person.getId().value());
+
+        assertEquals("Ocorreu um erro ao buscar a pessoa: Error", exception.getMessage());
+    }
+
+    @Test
     void shouldDelete_WhenValidIdIsProvided() {
         doNothing().when(repository).deleteById(person.getId().value());
 
         assertDoesNotThrow(() -> adapter.delete(person.getId()));
         verify(repository, times(1)).deleteById(person.getId().value());
+    }
+
+    @Test
+    void shouldThrowException_WhenDeleteFails() {
+        doThrow(new RuntimeException("Error")).when(repository).deleteById(person.getId().value());
+
+        var exeption = assertThrows(RuntimeException.class, () -> adapter.delete(person.getId()));
+
+        verify(repository, times(1)).deleteById(person.getId().value());
+
+        assertEquals("Ocorreu um erro ao deletar a pessoa: Error", exeption.getMessage());
     }
 
     @Test

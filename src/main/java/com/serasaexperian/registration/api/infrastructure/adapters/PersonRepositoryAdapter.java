@@ -3,11 +3,12 @@ package com.serasaexperian.registration.api.infrastructure.adapters;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 import com.serasaexperian.registration.api.application.domain.ports.PersonRepositoryPort;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
-import com.serasaexperian.registration.api.infrastructure.adapters.entity.AddressEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
-import com.serasaexperian.registration.api.infrastructure.adapters.entity.PhoneEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -42,6 +43,15 @@ public class PersonRepositoryAdapter implements PersonRepositoryPort {
             return entity.map(PersonEntity::toDomain);
         } catch (Exception e) {
             throw new RuntimeException("Ocorreu um erro ao buscar a pessoa: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Page<Person> findAll(Specification<PersonEntity> specification, Pageable pageable) {
+        try {
+            return repository.findAll(specification, pageable).map(PersonEntity::toDomain);
+        } catch (Exception e) {
+            throw new RuntimeException("Ocorreu um erro ao buscar todas as pessoas: " + e.getMessage(), e);
         }
     }
 

@@ -1,20 +1,20 @@
 package com.serasaexperian.registration.api.infrastructure.adapters.service;
 
 import com.serasaexperian.registration.api.application.domain.ports.ExternalServicePort;
-import com.serasaexperian.registration.api.infrastructure.adapters.client.ExternalServiceClient;
+import com.serasaexperian.registration.api.infrastructure.adapters.client.VIACepClient;
 import com.serasaexperian.registration.api.infrastructure.response.ExternalServiceResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ExternalServiceAdapter implements ExternalServicePort {
-    private final ExternalServiceClient externalServiceClient;
+    private final VIACepClient VIACepClient;
 
-    public ExternalServiceAdapter(ExternalServiceClient externalServiceClient) {
-        this.externalServiceClient = externalServiceClient;
+    public ExternalServiceAdapter(VIACepClient VIACepClient) {
+        this.VIACepClient = VIACepClient;
     }
 
     @Override
     public ExternalServiceResponse getAddressByZipCode(String zipCode) {
-        return externalServiceClient.getAddressByZipCode(zipCode).getBody();
+        return VIACepClient.getAddressByZipCode(zipCode).getBody();
     }
 }

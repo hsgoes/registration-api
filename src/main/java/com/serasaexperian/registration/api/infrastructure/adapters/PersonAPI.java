@@ -1,12 +1,14 @@
 package com.serasaexperian.registration.api.infrastructure.adapters;
 
+import com.serasaexperian.registration.api.infrastructure.request.PersonFilter;
 import com.serasaexperian.registration.api.infrastructure.request.CreatePersonRequestDTO;
 import com.serasaexperian.registration.api.infrastructure.request.UpdatePersonRequestDTO;
 import com.serasaexperian.registration.api.infrastructure.response.PersonResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.MediaType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public interface PersonAPI {
 
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @ApiResponse(responseCode = "201", description = "Created")
     @Operation(
             summary = "Criar pessoa",
@@ -23,13 +25,13 @@ public interface PersonAPI {
     )
     ResponseEntity<PersonResponseDTO> createPerson(@RequestBody CreatePersonRequestDTO createPersonRequestDTO);
 
-    @ApiResponse(responseCode = "201", description = "Created")
+    @ApiResponse(responseCode = "200", description = "OK")
     @Operation(
-            summary = "Buscar pessoa por id",
-            description = "Retorna uma pessoa com base no id informado"
+            summary = "Buscar pessoas",
+            description = "Retorna uma lista de pessoas com base nos parâmetros de busca informados"
     )
-    @GetMapping("/{id}")
-    ResponseEntity<PersonResponseDTO> getPerson(@PathVariable String id, @RequestParam String page, @RequestParam String size);
+    @GetMapping
+    ResponseEntity<Page<PersonResponseDTO>> getPersons(@ModelAttribute PersonFilter filter, Pageable pageable);
 
     @ApiResponse(responseCode = "204", description = "No Content")
     @Operation(

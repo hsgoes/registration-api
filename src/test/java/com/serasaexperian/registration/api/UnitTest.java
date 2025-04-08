@@ -3,7 +3,7 @@ package com.serasaexperian.registration.api;
 import com.serasaexperian.registration.api.application.domain.ports.PersonRepositoryPort;
 import com.serasaexperian.registration.api.application.domain.usecase.CreatePersonUseCase;
 import com.serasaexperian.registration.api.application.domain.usecase.DeletePersonUseCase;
-import com.serasaexperian.registration.api.application.domain.usecase.FindPersonUseCase;
+import com.serasaexperian.registration.api.infrastructure.adapters.client.VIACepClient;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,10 +18,8 @@ public class UnitTest {
     protected CreatePersonUseCase createPersonUseCase;
 
     @InjectMocks
-    protected FindPersonUseCase findPersonUseCase;
-
-    @InjectMocks
     protected DeletePersonUseCase deletePersonUseCase;
 
-
+    @Mock
+    protected VIACepClient viaCepClient;
 }

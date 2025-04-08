@@ -2,39 +2,46 @@ package com.serasaexperian.registration.api.infrastructure.adapters.service;
 
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 import com.serasaexperian.registration.api.application.domain.ports.ExternalServicePort;
+import com.serasaexperian.registration.api.application.domain.ports.PersonRepositoryPort;
 import com.serasaexperian.registration.api.application.domain.ports.PersonServicePort;
 import com.serasaexperian.registration.api.application.domain.usecase.CreatePersonUseCase;
 import com.serasaexperian.registration.api.application.domain.usecase.DeletePersonUseCase;
-import com.serasaexperian.registration.api.application.domain.usecase.FindPersonUseCase;
 import com.serasaexperian.registration.api.application.domain.usecase.UpdatePersonUseCase;
 import com.serasaexperian.registration.api.application.domain.usecase.input.CreatePersonUseCaseInput;
 import com.serasaexperian.registration.api.application.domain.usecase.input.DeletePersonUseCaseInput;
-import com.serasaexperian.registration.api.application.domain.usecase.input.FindPersonUseCaseInput;
 import com.serasaexperian.registration.api.application.domain.usecase.input.UpdatePersonUseCaseInput;
+import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
+import com.serasaexperian.registration.api.infrastructure.request.PersonFilter;
+import com.serasaexperian.registration.api.infrastructure.adapters.specifications.PersonSpecifications;
 import com.serasaexperian.registration.api.infrastructure.request.CreatePersonRequestDTO;
 import com.serasaexperian.registration.api.infrastructure.request.UpdatePersonRequestDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PersonServiceAdapter implements PersonServicePort {
 
     private final CreatePersonUseCase createPersonUseCase;
-    private final FindPersonUseCase findPersonUseCase;
     private final UpdatePersonUseCase updatePersonUseCase;
     private final DeletePersonUseCase deletePersonUseCase;
     private final ExternalServicePort externalServicePort;
+    private final PersonRepositoryPort repositoryPort;
 
     public PersonServiceAdapter(
             CreatePersonUseCase createPersonUseCase,
-            FindPersonUseCase findPersonUseCase, UpdatePersonUseCase updatePersonUseCase,
+            UpdatePersonUseCase updatePersonUseCase,
             DeletePersonUseCase deletePersonUseCase,
-            ExternalServicePort externalServicePort
+            ExternalServicePort externalServicePort,
+            PersonRepositoryPort repositoryPort, SpringDataPersonRepository repository
     ) {
         this.createPersonUseCase = createPersonUseCase;
-        this.findPersonUseCase = findPersonUseCase;
         this.updatePersonUseCase = updatePersonUseCase;
         this.deletePersonUseCase = deletePersonUseCase;
         this.externalServicePort = externalServicePort;
+        this.repositoryPort = repositoryPort;
     }
 
     @Override
@@ -62,13 +69,12 @@ public class PersonServiceAdapter implements PersonServicePort {
     }
 
     @Override
-    public Person getPerson(String id) {
-        var input = new FindPersonUseCaseInput(id);
+    public Page<Person> getAll(PersonFilter filter, Pageable pageable) {
+        Specification<PersonEntity> spec = PersonSpecifications.build(filter);
 
-        var output = findPersonUseCase.execute(input);
-
-        return output.toPerson();
+        return repositoryPort.findAll(spec, pageable);
     }
+
 
     @Override
     public void deletePerson(String id) {

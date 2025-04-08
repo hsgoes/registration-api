@@ -22,8 +22,6 @@ public class AddressEntity {
     private String street;
     private String number;
 
-    public AddressEntity() {}
-
     public AddressEntity(Address address, PersonEntity person) {
         this.id = person.getId();
         this.person = person;

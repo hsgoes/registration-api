@@ -18,9 +18,6 @@ public class PhoneEntity {
     private String DDD;
     private String number;
 
-    public PhoneEntity() {
-    }
-
     public PhoneEntity(Phone phone, PersonEntity person) {
         this.id = person.getId();
         this.person = person;

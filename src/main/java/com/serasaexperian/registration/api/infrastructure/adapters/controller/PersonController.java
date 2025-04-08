@@ -2,9 +2,12 @@ package com.serasaexperian.registration.api.infrastructure.adapters.controller;
 
 import com.serasaexperian.registration.api.application.domain.ports.PersonServicePort;
 import com.serasaexperian.registration.api.infrastructure.adapters.PersonAPI;
+import com.serasaexperian.registration.api.infrastructure.request.PersonFilter;
 import com.serasaexperian.registration.api.infrastructure.request.CreatePersonRequestDTO;
 import com.serasaexperian.registration.api.infrastructure.request.UpdatePersonRequestDTO;
 import com.serasaexperian.registration.api.infrastructure.response.PersonResponseDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +16,8 @@ public class PersonController implements PersonAPI {
 
     private final PersonServicePort servicePort;
 
-    public PersonController(PersonServicePort personServicePort) {
-        this.servicePort = personServicePort;
+    public PersonController(PersonServicePort servicePort) {
+        this.servicePort = servicePort;
     }
 
     @Override
@@ -30,12 +33,12 @@ public class PersonController implements PersonAPI {
     }
 
     @Override
-    public ResponseEntity<PersonResponseDTO> getPerson(
-            String id,
-            String page,
-            String size
-    ) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Page<PersonResponseDTO>> getPersons(PersonFilter personFilter, Pageable pageable) {
+        var persons = servicePort.getAll(personFilter, pageable);
+
+        Page<PersonResponseDTO> response = persons.map(PersonResponseDTO::new);
+
+        return ResponseEntity.ok(response);
     }
 
     @Override
@@ -54,6 +57,7 @@ public class PersonController implements PersonAPI {
             UpdatePersonRequestDTO updatePersonRequestDTO
     ) {
         var person = servicePort.updatePerson(id, updatePersonRequestDTO);
+
         var personResponseDTO = new PersonResponseDTO(person);
 
         return ResponseEntity

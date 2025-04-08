@@ -40,8 +40,6 @@ public class PersonResponseDTO {
     @JsonProperty("score")
     private Integer score;
 
-    public PersonResponseDTO() {}
-
     public PersonResponseDTO(Person person) {
         this.id = person.getId().value();
         this.name = person.getName().value();

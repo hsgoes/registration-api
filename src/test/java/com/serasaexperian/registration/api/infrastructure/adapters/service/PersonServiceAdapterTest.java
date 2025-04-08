@@ -6,11 +6,9 @@ import com.serasaexperian.registration.api.application.domain.entity.Phone;
 import com.serasaexperian.registration.api.application.domain.ports.ExternalServicePort;
 import com.serasaexperian.registration.api.application.domain.usecase.CreatePersonUseCase;
 import com.serasaexperian.registration.api.application.domain.usecase.DeletePersonUseCase;
-import com.serasaexperian.registration.api.application.domain.usecase.FindPersonUseCase;
 import com.serasaexperian.registration.api.application.domain.usecase.UpdatePersonUseCase;
 import com.serasaexperian.registration.api.application.domain.usecase.input.CreatePersonUseCaseInput;
 import com.serasaexperian.registration.api.application.domain.usecase.input.DeletePersonUseCaseInput;
-import com.serasaexperian.registration.api.application.domain.usecase.input.FindPersonUseCaseInput;
 import com.serasaexperian.registration.api.application.domain.usecase.input.UpdatePersonUseCaseInput;
 import com.serasaexperian.registration.api.application.domain.usecase.output.PersonUseCaseOutput;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
@@ -32,9 +30,6 @@ class PersonServiceAdapterTest {
 
     @Mock
     private CreatePersonUseCase createPersonUseCase;
-
-    @Mock
-    private FindPersonUseCase findPersonUseCase;
 
     @Mock
     private UpdatePersonUseCase updatePersonUseCase;
@@ -129,20 +124,6 @@ class PersonServiceAdapterTest {
         assertValues(result);
 
         verify(createPersonUseCase, times(1)).execute(any(CreatePersonUseCaseInput.class));
-    }
-
-    @Test
-    void shouldGetPerson_WhenIdIsValid() {
-        var input = new FindPersonUseCaseInput("123");
-
-        when(findPersonUseCase.execute(input)).thenReturn(personUseCaseOutput);
-
-        Person result = personServiceAdapter.getPerson("123");
-
-        assertValues(result);
-
-
-        verify(findPersonUseCase, times(1)).execute(any(FindPersonUseCaseInput.class));
     }
 
     @Test
