@@ -1,7 +1,6 @@
 package com.serasaexperian.registration.api.infrastructure.adapters.controller;
 
 import com.serasaexperian.registration.api.application.domain.ports.PersonServicePort;
-import com.serasaexperian.registration.api.infrastructure.adapters.PersonAPI;
 import com.serasaexperian.registration.api.infrastructure.request.PersonFilter;
 import com.serasaexperian.registration.api.infrastructure.request.CreatePersonRequestDTO;
 import com.serasaexperian.registration.api.infrastructure.request.UpdatePersonRequestDTO;

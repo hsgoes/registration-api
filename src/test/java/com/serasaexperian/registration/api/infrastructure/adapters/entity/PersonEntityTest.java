@@ -4,6 +4,7 @@ import com.serasaexperian.registration.api.application.domain.entity.Address;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 import com.serasaexperian.registration.api.application.domain.entity.Phone;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.PersonEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

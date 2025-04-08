@@ -10,7 +10,7 @@ import com.serasaexperian.registration.api.application.domain.usecase.UpdatePers
 import com.serasaexperian.registration.api.application.domain.usecase.input.CreatePersonUseCaseInput;
 import com.serasaexperian.registration.api.application.domain.usecase.input.DeletePersonUseCaseInput;
 import com.serasaexperian.registration.api.application.domain.usecase.input.UpdatePersonUseCaseInput;
-import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.PersonEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
 import com.serasaexperian.registration.api.infrastructure.request.PersonFilter;
 import com.serasaexperian.registration.api.infrastructure.adapters.specifications.PersonSpecifications;

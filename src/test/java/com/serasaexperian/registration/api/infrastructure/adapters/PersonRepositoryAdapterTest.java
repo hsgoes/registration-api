@@ -4,18 +4,14 @@ import com.serasaexperian.registration.api.application.domain.entity.Address;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 import com.serasaexperian.registration.api.application.domain.entity.Phone;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
-import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.PersonEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;

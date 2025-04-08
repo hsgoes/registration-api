@@ -1,6 +1,6 @@
 package com.serasaexperian.registration.api.infrastructure.adapters.specifications;
 
-import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.PersonEntity;
 import com.serasaexperian.registration.api.infrastructure.request.PersonFilter;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;

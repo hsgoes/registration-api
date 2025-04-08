@@ -3,7 +3,7 @@ package com.serasaexperian.registration.api.infrastructure.adapters;
 import com.serasaexperian.registration.api.application.domain.entity.Person;
 import com.serasaexperian.registration.api.application.domain.ports.PersonRepositoryPort;
 import com.serasaexperian.registration.api.application.domain.valueclass.Id;
-import com.serasaexperian.registration.api.infrastructure.adapters.entity.PersonEntity;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.PersonEntity;
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataPersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;

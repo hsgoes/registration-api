@@ -1,6 +1,8 @@
 package com.serasaexperian.registration.api.infrastructure.adapters.entity;
 
 import com.serasaexperian.registration.api.application.domain.entity.Phone;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.PersonEntity;
+import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.PhoneEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
