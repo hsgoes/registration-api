@@ -3,10 +3,12 @@ package com.serasaexperian.registration.api.infrastructure.adapters.repository.e
 import com.serasaexperian.registration.api.application.domain.entity.Address;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "addresses")
 @Getter
+@NoArgsConstructor
 public class AddressEntity {
     @jakarta.persistence.Id
     private String id;

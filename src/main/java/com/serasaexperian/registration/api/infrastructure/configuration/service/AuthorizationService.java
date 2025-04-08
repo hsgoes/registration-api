@@ -1,4 +1,4 @@
-package com.serasaexperian.registration.api.infrastructure.adapters.service;
+package com.serasaexperian.registration.api.infrastructure.configuration.service;
 
 import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

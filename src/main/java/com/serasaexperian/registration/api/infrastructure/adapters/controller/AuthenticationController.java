@@ -1,43 +1,30 @@
 package com.serasaexperian.registration.api.infrastructure.adapters.controller;
 
-import com.serasaexperian.registration.api.infrastructure.adapters.repository.SpringDataUserRepository;
-import com.serasaexperian.registration.api.infrastructure.adapters.repository.UserRole;
-import com.serasaexperian.registration.api.infrastructure.adapters.repository.entity.UserEntity;
-import com.serasaexperian.registration.api.infrastructure.request.LoginDTO;
-import com.serasaexperian.registration.api.infrastructure.request.RegisterDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.serasaexperian.registration.api.application.domain.ports.AuthenticationServicePort;
+import com.serasaexperian.registration.api.infrastructure.request.LoginRequestDTO;
+import com.serasaexperian.registration.api.infrastructure.request.RegisterRequestDTO;
+import com.serasaexperian.registration.api.infrastructure.response.LoginResponseDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AuthenticationController implements AuthAPI {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationServicePort authenticationServicePort;
 
-    @Autowired
-    SpringDataUserRepository repository;
-
-    public ResponseEntity<?> login(LoginDTO loginDTO) {
-        var usernamePassword = new UsernamePasswordAuthenticationToken(loginDTO.getLogin(), loginDTO.getPassword());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        return ResponseEntity
-                .ok()
-                .build();
+    public AuthenticationController(AuthenticationServicePort authenticationServicePort) {
+        this.authenticationServicePort = authenticationServicePort;
     }
 
-    public ResponseEntity<?> register(RegisterDTO registerDTO) {
-        if(this.repository.findByLogin(registerDTO.getLogin()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<LoginResponseDTO> login(LoginRequestDTO loginRequestDTO) {
+        var token = authenticationServicePort.login(loginRequestDTO);
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.getPassword());
+        return ResponseEntity
+                .ok(new LoginResponseDTO(token));
+    }
 
-        UserEntity user = new UserEntity(registerDTO.getLogin(), encryptedPassword, UserRole.valueOf(registerDTO.getRole()));
-
-        this.repository.save(user);
+    public ResponseEntity<?> register(RegisterRequestDTO registerRequestDTO) throws Exception {
+        authenticationServicePort.register(registerRequestDTO);
 
         return ResponseEntity
                 .ok()

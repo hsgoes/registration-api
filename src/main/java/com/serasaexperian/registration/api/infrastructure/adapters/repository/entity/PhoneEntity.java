@@ -3,10 +3,12 @@ package com.serasaexperian.registration.api.infrastructure.adapters.repository.e
 import com.serasaexperian.registration.api.application.domain.entity.Phone;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "phones")
 @Getter
+@NoArgsConstructor
 public class PhoneEntity {
     @jakarta.persistence.Id
     private String id;

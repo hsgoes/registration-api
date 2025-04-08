@@ -1,7 +1,7 @@
 package com.serasaexperian.registration.api.infrastructure.adapters.controller;
 
-import com.serasaexperian.registration.api.infrastructure.request.LoginDTO;
-import com.serasaexperian.registration.api.infrastructure.request.RegisterDTO;
+import com.serasaexperian.registration.api.infrastructure.request.LoginRequestDTO;
+import com.serasaexperian.registration.api.infrastructure.request.RegisterRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/api/v1")
-@Tag(name = "API para gerenciamento de pessoas")
+@Tag(name = "API para gerenciamento de usuários")
 public interface AuthAPI {
 
     @PostMapping("/login")
@@ -21,7 +21,7 @@ public interface AuthAPI {
             summary = "Autenticar usuario",
             description = "Autentica um usuario e devolve um token de acesso"
     )
-    ResponseEntity<?> login(@RequestBody @Valid LoginDTO loginDTO);
+    ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO);
 
     @PostMapping("/register")
     @ApiResponse(responseCode = "200", description = "Ok")
@@ -29,5 +29,5 @@ public interface AuthAPI {
             summary = "Registrar um usuario",
             description = "Registra um usuario para acesso ao sistema"
     )
-    ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO);
+    ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) throws Exception;
 }

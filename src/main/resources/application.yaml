@@ -26,9 +26,13 @@ springdoc:
   api-docs:
     enabled: true
   swagger-ui:
-    url: /openapi.yaml
+    url: /openapi.json
     path: /swagger-ui
 
 via-cep:
   api:
     base-url: ${VIA_CEP_BASE_URL}
+
+jwt:
+    secret: ${JWT_SECRET}
+    issuer: ${JWT_ISSUER}

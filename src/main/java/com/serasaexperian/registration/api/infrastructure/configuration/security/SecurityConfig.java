@@ -1,5 +1,6 @@
 package com.serasaexperian.registration.api.infrastructure.configuration.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,10 +14,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
@@ -27,18 +32,15 @@ public class SecurityConfig {
                     .sessionManagement(session ->
                             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(authorize -> authorize
-                            .requestMatchers(
-                                    HttpMethod.GET,
-                                    "/v3/api-docs/**",
-                                    "/swagger-ui/**",
-                                    "/openapi.yaml"
-                            ).permitAll()
+                            .requestMatchers(HttpMethod.GET).permitAll()
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/api/v1/login").permitAll()
                             .requestMatchers("/api/v1/register").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/v1/persons").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.POST, "/api/v1/person").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT, "/api/v1/person").hasRole("ADMIN")
                             .anyRequest().authenticated()
                     )
+                    .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e);

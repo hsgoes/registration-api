@@ -1,0 +1,504 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1/person/{id}": {
+      "put": {
+        "tags": [
+          "API para gerenciamento de pessoas"
+        ],
+        "summary": "Atualizar pessoa",
+        "description": "Atualiza uma pessoa com base no id informado",
+        "operationId": "updatePerson",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePersonRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "API para gerenciamento de pessoas"
+        ],
+        "summary": "Deletar pessoa",
+        "description": "Deleta uma pessoa com base no id informado",
+        "operationId": "deletePerson",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/register": {
+      "post": {
+        "tags": [
+          "API para gerenciamento de usuários"
+        ],
+        "summary": "Registrar um usuario",
+        "description": "Registra um usuario para acesso ao sistema",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/person": {
+      "get": {
+        "tags": [
+          "API para gerenciamento de pessoas"
+        ],
+        "summary": "Buscar pessoas",
+        "description": "Retorna uma lista de pessoas com base nos parâmetros de busca informados",
+        "operationId": "getPersons",
+        "parameters": [
+          {
+            "name": "personFilter",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PersonFilter"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagePersonResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "API para gerenciamento de pessoas"
+        ],
+        "summary": "Criar pessoa",
+        "description": "Registra uma pessoa no banco de dados juntamente com seu endereço e o score",
+        "operationId": "createPerson",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "tags": [
+          "API para gerenciamento de usuários"
+        ],
+        "summary": "Autenticar usuario",
+        "description": "Autentica um usuario e devolve um token de acesso",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpdatePersonRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome da pessoa"
+          },
+          "age": {
+            "type": "string",
+            "description": "Idade da pessoa"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Endereço da pessoa"
+          },
+          "number": {
+            "type": "string",
+            "description": "Número do documento da pessoa"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Tipo do documento da pessoa"
+          },
+          "ddd": {
+            "type": "string",
+            "description": "DDD do telefone da pessoa"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Número do telefone da pessoa"
+          }
+        }
+      },
+      "PersonResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "neighborhood": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RegisterDTO": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "CreatePersonRequestDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome da pessoa",
+            "example": "João da Silva"
+          },
+          "age": {
+            "type": "string",
+            "description": "Idade da pessoa",
+            "example": 25
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Cep da residencia",
+            "example": 12345678
+          },
+          "number": {
+            "type": "string",
+            "description": "Numero da residencia",
+            "example": 123
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Score da pessoa",
+            "example": 1000
+          },
+          "ddd": {
+            "type": "string",
+            "description": "DDD do telefone",
+            "example": 11
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Numero do telefone",
+            "example": 999999999
+          }
+        },
+        "required": [
+          "age",
+          "ddd",
+          "name",
+          "number",
+          "phoneNumber",
+          "score",
+          "zipCode"
+        ]
+      },
+      "LoginDTO": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "description": "Login do usuário",
+            "example": "serasaexperian"
+          },
+          "password": {
+            "type": "string",
+            "description": "Senha do usuário",
+            "example": "serasaexperian"
+          }
+        }
+      },
+      "PersonFilter": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome da pessoa",
+            "example": "João da Silva"
+          },
+          "age": {
+            "type": "string",
+            "description": "Idade da pessoa",
+            "example": 25
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Número do CPF da pessoa",
+            "example": 12345678909
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PagePersonResponseDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonResponseDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unpaged": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
