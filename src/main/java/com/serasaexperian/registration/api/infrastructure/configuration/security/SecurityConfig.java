@@ -1,5 +1,6 @@
 package com.serasaexperian.registration.api.infrastructure.configuration.security;
 
+import com.serasaexperian.registration.api.infrastructure.handler.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,9 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
 
+    @Autowired
+    CustomAccessDeniedHandler customAccessDeniedHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
         try {
@@ -39,6 +43,9 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.POST, "/api/v1/person").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.PUT, "/api/v1/person").hasRole("ADMIN")
                             .anyRequest().authenticated()
+                    )
+                    .exceptionHandling(exception -> exception
+                            .accessDeniedHandler(customAccessDeniedHandler)
                     )
                     .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                     .build();

@@ -31,7 +31,7 @@ public class TokenService {
                     .withExpiresAt(getExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException e) {
-            throw new RuntimeException("Token generation failed", e);
+            throw new RuntimeException("Falha ao gerar o Token", e);
         }
     }
 
@@ -45,7 +45,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException e) {
-            return "";
+            throw new RuntimeException("Ocorreu um erro durante a validação do Token", e);
         }
     }
 

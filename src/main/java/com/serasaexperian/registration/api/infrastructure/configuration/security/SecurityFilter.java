@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,17 +34,36 @@ public class SecurityFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         var token = this.recoverToken(request);
 
-        if(token != null) {
-            var login = tokenService.validateToken(token);
+        try {
+            if(token != null) {
+                var login = tokenService.validateToken(token);
 
-            UserDetails user = repository.findByLogin(login);
+                UserDetails user = repository.findByLogin(login);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                if (user == null)
+                    throw new RuntimeException("Usuário não encontrado");
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+
+            filterChain.doFilter(request, response);
+        } catch (Exception ex) {
+            handleException(response, ex);
         }
 
-        filterChain.doFilter(request, response);
+    }
+
+    private static void handleException(HttpServletResponse response, Exception ex) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.getWriter().write("""
+            {
+                "error": "Acesso Negado",
+                "message": "%s"
+            }
+            """.formatted(ex.getMessage()));
     }
 
     private String recoverToken(HttpServletRequest request) {
